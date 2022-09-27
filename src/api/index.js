@@ -8,7 +8,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
     Accept: 'application/json',
   };
 
-  if (token) {
+  if (token) { 
     headers.Authorization = `Bearer ${token}`;
   }
 
