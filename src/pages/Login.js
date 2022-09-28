@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import styles from '../styles/login.module.css';
 import { useToasts } from 'react-toast-notifications';
+
+import styles from '../styles/login.module.css';
+import { useAuth } from '../hooks';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
   const { addToast } = useToasts();
+  const auth = useAuth();
+  console.log(auth);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoggingIn(true);
@@ -18,6 +22,20 @@ const Login = () => {
         appearance: 'error',
       });
     }
+
+    const response = await auth.login(email, password);
+
+    if (response.success) {
+      addToast('Successfully logged in', {
+        appearance: 'success',
+      });
+    } else {
+      addToast(response.message, {
+        appearance: 'error',
+      });
+    }
+
+    setLoggingIn(false);
   };
 
   return (
@@ -39,8 +57,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div className={styles.field} disabled={loggingIn}>
-        <button>{loggingIn ? 'Logging in...' : 'Log In'}</button>
+      <div className={styles.field}>
+        <button disabled={loggingIn}>
+          {loggingIn ? 'Logging in...' : 'Log In'}
+        </button>
       </div>
     </form>
   );
