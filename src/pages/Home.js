@@ -2,15 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { Comment, Loader } from '../components';
 import { getPosts } from '../api';
-import { useAuth } from '../hooks';
 import styles from '../styles/home.module.css';
-
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState([]);
-
-  const auth = useAuth()
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -26,7 +22,7 @@ const Home = () => {
     fetchPosts();
   }, []);
 
-  if (auth.loading) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -45,7 +41,7 @@ const Home = () => {
                 <span className={styles.postTime}>a minute ago</span>
               </div>
             </div>
-            <div className={styles.postContent}>{post.user.content}</div>
+            <div className={styles.postContent}>{post.content}</div>
 
             <div className={styles.postActions}>
               <div className={styles.postLike}>
@@ -61,7 +57,7 @@ const Home = () => {
                   src="https://cdn-icons-png.flaticon.com/512/3193/3193015.png"
                   alt="comments-icon"
                 />
-                <span>2</span>
+                <span>{post.comments.length}</span>
               </div>
             </div>
             <div className={styles.postCommentBox}>
