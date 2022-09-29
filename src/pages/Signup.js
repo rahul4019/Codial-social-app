@@ -28,7 +28,7 @@ const Signup = () => {
       error = true;
     }
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       addToast('Make sure password and confirm password matches', {
         appearance: 'error',
       });
