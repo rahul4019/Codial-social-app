@@ -14,6 +14,7 @@ const Signup = () => {
   const { addToast } = useToasts();
   const auth = useAuth();
   const navigate = useNavigate();
+  console.log(navigate)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
