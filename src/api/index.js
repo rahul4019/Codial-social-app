@@ -100,7 +100,7 @@ export const addPost = (content) => {
     method: 'POST',
     body: {
       content,
-    }
+    },
   });
 };
 
@@ -110,6 +110,12 @@ export const createComment = (content, postId) => {
     body: {
       post_id: postId,
       content,
-    }
+    },
+  });
+};
+
+export const toggleLike = (itemId, itemType) => {
+  return customFetch(API_URLS.toggleLike(itemId, itemType), {
+    method: 'POST',
   });
 };
